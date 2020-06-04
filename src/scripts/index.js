@@ -66,3 +66,28 @@ barba.init({
     },
   ],
 });
+
+const $container = document.querySelector('.scroll-container');
+const $pause = document.querySelector('.pause');
+
+let scrollIsPaused = false;
+
+const containerHeigth = $container.offsetHeight;
+const speed = 3.5;
+const tl = gsap.timeline();
+
+tl.to('.scroll-container', {
+  y: -containerHeigth,
+  duration: containerHeigth / (speed * 10),
+});
+
+$pause.addEventListener('click', function (e) {
+  if (scrollIsPaused) {
+    tl.play();
+    e.currentTarget.innerHTML = 'pause';
+  } else {
+    tl.pause();
+    e.currentTarget.innerHTML = 'play';
+  }
+  scrollIsPaused = !scrollIsPaused;
+});
