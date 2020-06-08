@@ -1,0 +1,70 @@
+.circular-progress
+  position: relative
+
+  display: inline-block
+
+  width: 50px
+  height: 50px
+
+  border-radius: 50%
+
+  & svg
+    transform: rotate(270deg)
+
+  & circle
+    stroke-width: 1
+    fill: none
+    stroke-linecap: round
+
+  & circle:nth-of-type(1)
+    stroke: rgba(#fff, 0.2)
+
+  & circle:nth-of-type(2)
+    stroke: #fff
+    stroke-dasharray: 251.4285714286
+    stroke-dashoffset: 75.4285714286
+
+  & .pct
+    position: absolute
+    top: 50%
+    left: 50%
+
+    margin: 0
+
+    transform: translate(-50%, -50%)
+
+#slider
+  width: 50%
+  margin: 0 50px
+
+  &::-moz-range-thumb
+    background-color: #d8503a
+
+  &::-webkit-slider-thumb
+    background-color: #d8503a
+
+  &::-ms-thumb
+    background-color: #d8503a
+
+  &:focus::-moz-range-thumb
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(216, 80, 58, 0.25)
+
+  &:focus::-webkit-slider-thumb
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(216, 80, 58, 0.25)
+
+  &:focus::-ms-thumb
+    box-shadow: 0 0 0 1px #fff, 0 0 0 0.2rem rgba(216, 80, 58, 0.25)
+
+.circular-icon
+  position: absolute
+
+.circular-progress
+  position: relative
+
+  display: flex
+  align-items: center
+  justify-content: center
+
+  svg
+    width: 50px
+    height: 50px

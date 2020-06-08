@@ -19,72 +19,58 @@
       <img class="logo" src="assets/img/logo.png" alt="" />
     </header>
 
-    <div class="fade fade--top"></div>
-    <div class="fade fade--bottom"></div>
-
     <main data-barba="container" data-barba-namespace="home">
-      <div class="scroll-container">
-        <section class="ch" data-ch="1">
-          <h2 class="ch__title">01 - introductie</h2>
-          <p class="ch__text">Samen met Milo Grootjen van Artis heb ik het over het onderwerp en zo. Echt leuk hoor.</p>
-          <img class="ch__img" src="assets/img/milo.jpg" alt="" />
-        </section>
+      <div class="fade fade--top"></div>
 
-        <section class="ch" data-ch="2">
-          <h2 class="ch__title">02 - dingen</h2>
-          <p class="ch__text">Samen met Milo Grootjen van Artis heb ik het over het onderwerp en zo. Echt leuk hoor.</p>
-        </section>
+      <h1 class="intro__title">Kijk is omhoog.</h1>
+      <p class="intro__p">Van de muren in je huis, naar een kijk op de maan.</p>
 
-        <section class="ch" data-ch="3">
-          <h2 class="ch__title">02 - dingen</h2>
-          <p class="ch__text">Samen met Milo Grootjen van Artis heb ik het over het onderwerp en zo. Echt leuk hoor.</p>
-        </section>
+      <!-- <input type="range" class="custom-range" id="slider" value="70" /> -->
 
-        <section class="ch" data-ch="4">
-          <h2 class="ch__title">02 - dingen</h2>
-          <p class="ch__text">Samen met Milo Grootjen van Artis heb ik het over het onderwerp en zo. Echt leuk hoor.</p>
-        </section>
+      <footer>
+        <div class="pause">
+          <div class="circular-progress">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-labelledby="title" role="graphic">
+              <circle cx="50" cy="50" r="40"></circle>
+              <circle cx="50" cy="50" r="40" id="pct-ind"></circle>
+            </svg>
+            <img src="assets/img/arrow-up.svg" class="circular-icon" />
+          </div>
+          <p class="pause__text">Scroll omhoog</p>
+        </div>
 
-        <section class="ch" data-ch="4">
-          <h2 class="ch__title">02 - dingen</h2>
-          <p class="ch__text">Samen met Milo Grootjen van Artis heb ik het over het onderwerp en zo. Echt leuk hoor.</p>
-        </section>
+        <!-- <p class="pause">pause</p>
+        <p>timeline</p> -->
+      </footer>
 
-        <section class="ch" data-ch="4">
-          <h2 class="ch__title">02 - dingen</h2>
-          <p class="ch__text">Samen met Milo Grootjen van Artis heb ik het over het onderwerp en zo. Echt leuk hoor.</p>
-        </section>
-
-        <section class="ch" data-ch="4">
-          <h2 class="ch__title">02 - dingen</h2>
-          <p class="ch__text">Samen met Milo Grootjen van Artis heb ik het over het onderwerp en zo. Echt leuk hoor.</p>
-        </section>
-
-        <section class="ch" data-ch="4">
-          <h2 class="ch__title">02 - dingen</h2>
-          <p class="ch__text">Samen met Milo Grootjen van Artis heb ik het over het onderwerp en zo. Echt leuk hoor.</p>
-        </section>
-
-        <section class="ch" data-ch="4">
-          <h2 class="ch__title">02 - dingen</h2>
-          <p class="ch__text">Samen met Milo Grootjen van Artis heb ik het over het onderwerp en zo. Echt leuk hoor.</p>
-        </section>
-
-        <section class="ch" data-ch="4">
-          <h2 class="ch__title">02 - dingen</h2>
-          <p class="ch__text">Samen met Milo Grootjen van Artis heb ik het over het onderwerp en zo. Echt leuk hoor.</p>
-        </section>
-
-        <section class="ch" data-ch="4">
-          <h2 class="ch__title">02 - dingen</h2>
-          <p class="ch__text">Samen met Milo Grootjen van Artis heb ik het over het onderwerp en zo. Echt leuk hoor.</p>
-        </section>
-      </div>
+      <div class="fade fade--bottom"></div>
     </main>
 
-    <footer>
-      <p class="pause">pause</p>
-      <p>timeline</p>
-    </footer>
+    <script>
+      // console.log('a');
+
+      const slider = document.querySelector('#slider');
+      const pct = document.querySelector('.pct');
+      const pctIndicator = document.querySelector('#pct-ind');
+
+      let count = 0;
+      function calcR(val) {
+        return (1 - val / 100) * (2 * (22 / 7) * 40);
+      }
+
+      setInterval(() => {
+        if (count < 100) {
+          const pr = calcR(count);
+          pctIndicator.style = `stroke-dashoffset: ${pr};`;
+
+          count++;
+        }
+      }, 10);
+
+      slider.oninput = () => {
+        const p = calcR(slider.value);
+        pctIndicator.style = `stroke-dashoffset: ${p};`;
+      };
+    </script>
   </body>
 </html>
