@@ -8,6 +8,7 @@
     <meta name="author" content="Martijn Keesmaat" />
   </head>
 
+  <!-- <body data-barba="wrapper" class="loading"> -->
   <body data-barba="wrapper">
     <ul class="transition">
       <li></li>
@@ -15,20 +16,31 @@
       <li></li>
     </ul>
 
+    <div class="loader">
+      <div class="sun">
+        <svg class="eclipse-container" viewBox="0 0 100 100">
+          <circle class="eclipse" cx="50" cy="50" r="49" transform="rotate(-90 50 50)" />
+        </svg>
+      </div>
+    </div>
+
     <header>
-      <img class="logo" src="assets/img/logo.png" alt="" />
+      <a href="index.html">
+        <img class="logo" src="assets/img/logo.png" alt="" />
+      </a>
     </header>
 
-    <main data-barba="container" data-barba-namespace="home">
-      <div class="fade fade--top"></div>
+    <div class="fade fade--top"></div>
+    <div class="fade fade--bottom"></div>
+
+    <main class="page-home" data-barba="container" data-barba-namespace="home">
+      <img src="assets/img/maan.jpg" alt="" class="moon-bg" />
 
       <h1 class="intro__title">Kijk is omhoog.</h1>
       <p class="intro__p">Van de muren in je huis, naar een kijk op de maan.</p>
 
-      <!-- <input type="range" class="custom-range" id="slider" value="70" /> -->
-
-      <footer>
-        <div class="pause">
+      <div class="pause">
+        <a href="story.html">
           <div class="circular-progress">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-labelledby="title" role="graphic">
               <circle cx="50" cy="50" r="40"></circle>
@@ -37,14 +49,16 @@
             <img src="assets/img/arrow-up.svg" class="circular-icon" />
           </div>
           <p class="pause__text">Scroll omhoog</p>
-        </div>
+        </a>
+      </div>
 
-        <!-- <p class="pause">pause</p>
-        <p>timeline</p> -->
-      </footer>
-
-      <div class="fade fade--bottom"></div>
+      <!-- <input type="range" class="custom-range" id="slider" value="70" /> -->
     </main>
+
+    <footer>
+      <p class="pause">pause</p>
+      <p>timeline</p>
+    </footer>
 
     <script>
       // console.log('a');
@@ -59,7 +73,7 @@
       }
 
       setInterval(() => {
-        if (count < 100) {
+        if (count < 200) {
           const pr = calcR(count);
           pctIndicator.style = `stroke-dashoffset: ${pr};`;
 
@@ -67,10 +81,13 @@
         }
       }, 10);
 
-      slider.oninput = () => {
-        const p = calcR(slider.value);
-        pctIndicator.style = `stroke-dashoffset: ${p};`;
-      };
+      // slider.oninput = () => {
+      //   const p = calcR(slider.value);
+      //   pctIndicator.style = `stroke-dashoffset: ${p};`;
+      // };
+
+      const footer = document.querySelector('footer');
+      footer.innerHTML = '';
     </script>
   </body>
 </html>

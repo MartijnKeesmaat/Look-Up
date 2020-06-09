@@ -57,10 +57,17 @@ barba.init({
       },
 
       async enter({ current, next, trigger }) {
+        if (next.namespace === 'home') home();
+        if (next.namespace === 'story') story();
+
         contentAnimation();
       },
 
       async once({ current, next, trigger }) {
+        if (next.namespace === 'home') home();
+        console.log(next.namespace);
+        if (next.namespace === 'story') story();
+
         console.log(next.namespace);
         contentAnimation();
       },
@@ -94,7 +101,7 @@ timestamps.forEach((e) => {
 
 // console.log(seconds);
 
-console.log(sprites);
+// console.log(sprites);
 
 var sound = new Howl({
   src: ['assets/sound/podcast.mp3'],
@@ -112,85 +119,100 @@ var sound = new Howl({
 
 // console.log(sound._sprite);
 
-sound.once('load', function () {
-  // sound.play('intro');
-  // sound.rate(1.5);
-  tl.play();
+function home() {
+  sound.once('load', function () {
+    document.body.classList.remove('loading');
+  });
+}
 
-  console.log(sound.duration());
-});
+// Story globals
+let scrollIsPaused = false;
+const tl = gsap.timeline();
 
-// const $container = document.querySelector('.scroll-container');
-// const $pause = document.querySelector('.pause');
-// const $ch = document.querySelectorAll('.ch');
+function story() {
+  scrollContent();
+  pauseResumeScroll();
+  checkContainerPos();
+  console.log('aap');
+}
 
-// let scrollIsPaused = false;
+function scrollContent() {
+  const $container = document.querySelector('.scroll-container');
+  console.log($container);
 
-// const containerHeigth = $container.offsetHeight;
-// const speed = 3.5;
-// const tl = gsap.timeline();
+  // const containerHeight = 1000;
+  const containerHeight = $container.offsetHeight;
+  const speed = 3.5;
 
-// // Scroll container to bottom
-// tl.to('.scroll-container', {
-//   y: -containerHeigth,
-//   duration: containerHeigth / (speed * 10),
-// });
+  tl.to('.scroll-container', {
+    y: -containerHeight,
+    duration: containerHeight / (speed * 10),
+  });
 
-// tl.pause();
+  // tl.pause();
+}
 
-// // Pause/Resume scroll
-// $pause.addEventListener('click', function (e) {
-//   if (scrollIsPaused) {
-//     tl.play();
-//     e.currentTarget.innerHTML = 'pause';
-//   } else {
-//     tl.pause();
-//     e.currentTarget.innerHTML = 'play';
-//   }
-//   scrollIsPaused = !scrollIsPaused;
-// });
+function pauseResumeScroll() {
+  const $pause = document.querySelector('.pause');
 
-// let chapterStatus = [];
-// $ch.forEach((e) => {
-//   chapterStatus.push([false, false, false]);
-// });
+  // Pause/Resume scroll
+  $pause.addEventListener('click', function (e) {
+    if (scrollIsPaused) {
+      tl.play();
+      e.currentTarget.innerHTML = 'pause';
+    } else {
+      tl.pause();
+      e.currentTarget.innerHTML = 'play';
+    }
+    scrollIsPaused = !scrollIsPaused;
+  });
+}
 
-// // Check if each chapter is currently on screen
-// let checkStatusInterval = setInterval(() => {
-//   $ch.forEach((chapter, i) => {
-//     const y = chapter.getBoundingClientRect().y;
-//     const bottom = 450;
-//     const top = 30;
+function checkContainerPos() {
+  const $ch = document.querySelectorAll('.ch');
 
-//     if (!chapterStatus[i][0]) {
-//       if (y < bottom && y > top) {
-//         // Do something
-//         console.log(chapter.dataset.ch + ' is on screen');
-//         chapter.classList.add('showmebro');
+  let chapterStatus = [];
+  $ch.forEach((e) => {
+    chapterStatus.push([false, false, false]);
+  });
 
-//         // clear status
-//         chapterStatus[i][0] = !chapterStatus[i][0];
-//       }
-//     }
+  // Check if each chapter is currently on screen
+  let checkStatusInterval = setInterval(() => {
+    $ch.forEach((chapter, i) => {
+      const y = chapter.getBoundingClientRect().y;
+      const bottom = 450;
+      const top = 30;
 
-//     if (!chapterStatus[i][1]) {
-//       if (y < top) {
-//         // Do something
-//         console.log(chapter.dataset.ch + ' has left');
+      if (!chapterStatus[i][0]) {
+        if (y < bottom && y > top) {
+          // Do something
+          console.log(chapter.dataset.ch + ' is on screen');
+          chapter.classList.add('showmebro');
 
-//         // clear status
-//         chapterStatus[i][1] = !chapterStatus[i][1];
-//       }
-//     }
+          // clear status
+          chapterStatus[i][0] = !chapterStatus[i][0];
+        }
+      }
 
-//     if (!chapterStatus[i][2]) {
-//       if (y > bottom) {
-//         // Do something
-//         console.log(chapter.dataset.ch + ' has not entered');
+      if (!chapterStatus[i][1]) {
+        if (y < top) {
+          // Do something
+          console.log(chapter.dataset.ch + ' has left');
 
-//         // clear status
-//         chapterStatus[i][2] = !chapterStatus[i][2];
-//       }
-//     }
-//   });
-// }, 500);
+          // clear status
+          chapterStatus[i][1] = !chapterStatus[i][1];
+        }
+      }
+
+      if (!chapterStatus[i][2]) {
+        if (y > bottom) {
+          // Do something
+          console.log(chapter.dataset.ch + ' has not entered');
+
+          // clear status
+          chapterStatus[i][2] = !chapterStatus[i][2];
+        }
+      }
+    });
+  }, 500);
+}

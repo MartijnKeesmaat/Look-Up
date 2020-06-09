@@ -1,4 +1,19 @@
+
+.page-home
+  z-index: 10000
+
+  display: flex
+  flex: 1
+  flex-direction: column
+  justify-content: flex-end
+
+  padding: 28px
+  padding-bottom: 5.1rem
+
 .intro__title
+  margin-top: 0
+  margin-bottom: 1.6rem
+
   text-align: left
 
   color: #F9F9F9
@@ -10,6 +25,7 @@
 
 .intro__p
   max-width: 165px
+  margin-bottom: 2.5rem
 
   text-align: left
 
@@ -19,7 +35,7 @@
   font-size: 16px
   line-height: 20px
 
-.pause
+.pause, .pause a
   display: flex
   align-items: center
 
@@ -33,3 +49,9 @@
 
   font-family: FuturaNewBook-Reg
   font-size: 14px
+
+img.moon-bg
+  position: fixed
+  z-index: -1
+  top: 0
+  left: 0
