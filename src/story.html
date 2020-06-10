@@ -147,8 +147,13 @@
     </main>
 
     <footer>
-      <p class="pause">pause</p>
-      <p>timeline</p>
+      <div class="circular-progress pause">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-labelledby="title" role="graphic">
+          <circle cx="50" cy="50" r="40"></circle>
+          <circle cx="50" cy="50" r="40" id="pct-ind"></circle>
+        </svg>
+        <img src="assets/img/pause.svg" class="circular-icon" />
+      </div>
     </footer>
   </body>
 </html>
