@@ -1,11 +1,14 @@
 import { Howl, Howler } from 'howler';
+import { AudioPlayer } from './AudioPlayer.js';
 
-function home() {
+export function home() {
+  let audioPlayer = new AudioPlayer();
+
   var remembering = new Howl({
     src: ['assets/sound/remembering.mp3'],
   });
 
-  if (!KILLAUDIO) remembering.play();
+  // remembering.play();
 
   audioPlayer.timestampToSprites();
   audioPlayer.initSound();

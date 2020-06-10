@@ -1,12 +1,11 @@
 import '../styles/index.sass';
 import './pace.min.js';
 import './pageTransition.js';
-// import gsap from 'gsap';
 import barba from '@barba/core';
 
 import { pageTransition, contentAnimation, delay } from './pageTransition.js';
 
-import './home.js';
+import { home } from './home.js';
 import { story } from './storyFn.js';
 
 barba.init({
