@@ -5,6 +5,10 @@ import { AudioPlayer } from './AudioPlayer.js';
 import gsap from 'gsap';
 let storyTL = gsap.timeline();
 
+function normalize(value, min, max) {
+  return (value - min) / (max - min);
+}
+
 class Story {
   constructor() {
     this.scrollIsPaused = false;
@@ -19,15 +23,39 @@ class Story {
 
     const length = containerHeight + window.innerHeight / 1.8;
     const speed = 4.5;
+    const duration = length / (speed * 10);
 
     storyTL.to('.scroll-container', {
       y: -length,
       ease: 'linear',
-      duration: length / (speed * 10),
+      duration: duration,
       onComplete: function () {
         console.log('scroll is finished');
       },
     });
+
+    const pctIndicator = document.querySelector('#pct-ind');
+    const $marker = document.querySelector('.timeline__marker');
+    const $fill = document.querySelector('.timeline__filled');
+
+    let progress = 0;
+    function calcR(val) {
+      return (1 - val / 100) * (2 * (22 / 7) * 40);
+    }
+
+    var x = 0;
+    var intervalID = setInterval(function () {
+      const pr = calcR(progress);
+      pctIndicator.style = `stroke-dashoffset: ${pr};`;
+      $marker.style.left = `${progress}%`;
+      $fill.style.width = `${progress}%`;
+
+      if (++x === Math.floor(duration) / 1000 / 100) {
+        window.clearInterval(intervalID);
+      }
+
+      progress++;
+    }, (Math.floor(duration) / 100) * 1000);
   }
 
   pauseResumeScroll() {
@@ -121,9 +149,6 @@ const audioPlayer = new AudioPlayer();
 export function story() {
   audioPlayer.timestampToSprites();
   audioPlayer.initSound();
-
-  // console.log(storyTL);
-  // console.log('kutkutkutkutkut');
   audioPlayer.sound.once('load', function () {
     // audioPlayer.sound.play(currentAudio);
     storyTL.play();
