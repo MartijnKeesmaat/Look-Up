@@ -8,8 +8,8 @@
     <meta name="author" content="Martijn Keesmaat" />
   </head>
 
-  <!-- <body data-barba="wrapper" class="loading"> -->
-  <body data-barba="wrapper">
+  <body data-barba="wrapper" class="loading">
+    <!-- <body data-barba="wrapper"> -->
     <ul class="transition">
       <li></li>
       <li></li>
@@ -21,6 +21,8 @@
         <svg class="eclipse-container" viewBox="0 0 100 100">
           <circle class="eclipse" cx="50" cy="50" r="49" transform="rotate(-90 50 50)" />
         </svg>
+
+        <p>Jouw podcast is aan het laden</p>
       </div>
     </div>
 
@@ -60,34 +62,6 @@
       <p>timeline</p>
     </footer>
 
-    <script>
-      // console.log('a');
-
-      const slider = document.querySelector('#slider');
-      const pct = document.querySelector('.pct');
-      const pctIndicator = document.querySelector('#pct-ind');
-
-      let count = 0;
-      function calcR(val) {
-        return (1 - val / 100) * (2 * (22 / 7) * 40);
-      }
-
-      setInterval(() => {
-        if (count < 200) {
-          const pr = calcR(count);
-          pctIndicator.style = `stroke-dashoffset: ${pr};`;
-
-          count++;
-        }
-      }, 10);
-
-      // slider.oninput = () => {
-      //   const p = calcR(slider.value);
-      //   pctIndicator.style = `stroke-dashoffset: ${p};`;
-      // };
-
-      const footer = document.querySelector('footer');
-      footer.innerHTML = '';
-    </script>
+    <script></script>
   </body>
 </html>
