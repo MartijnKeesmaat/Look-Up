@@ -1,4 +1,5 @@
 import gsap from 'gsap';
+import { normalize } from './helpers.js';
 
 var ShaderUtil = {
   createShader: function (gl, source, type) {
@@ -132,7 +133,7 @@ export function flag() {
     }
 
     image.crossOrigin = 'anonymous';
-    image.src = './assets/img/fabric.jpg';
+    image.src = './assets/img/fabric2.jpg';
     console.log(image);
 
     image.onload = function () {
@@ -198,7 +199,7 @@ export function flag() {
         delta = timeNow - timeLast;
         if (delta > interval) {
           timeLast = timeNow;
-          distance += delta * 0.0001 * speed;
+          distance += delta * 0.0003 * speed;
           gl.uniform1f(uDistance, distance);
           draw();
         }
@@ -238,19 +239,173 @@ export function flag() {
   fadeOverlay();
 }
 
-let flagPacity = 8;
+let progress = 0;
+function calcR(val) {
+  return (1 - val / 100) * (2 * (22 / 7) * 40);
+}
+const pctIndicator = document.querySelector('#pct-ind');
+
+// let count = 0;
+// function calcR(val) {
+//   return (1 - val / 100) * (2 * (22 / 7) * 40);
+// }
+
+gsap.set('.year-counter', { autoAlpha: 0 });
+
+gsap.set('.year-counter__count span', { autoAlpha: 0 });
+gsap.set('.year-counter__count span:nth-child(1)', { autoAlpha: 1 });
+
+gsap.set('.ch__text', { autoAlpha: 0 });
+gsap.set('.ch__text:nth-child(1)', { autoAlpha: 1 });
+
+const pr = calcR(normalize(progress, 0, 6) * 100);
+pctIndicator.style = `stroke-dashoffset: ${pr};`;
 
 function fadeOverlay() {
   const $overlay = document.querySelector('.flag-overlay');
   const $actionBtn = document.querySelector('.page-flag .pause');
 
   $actionBtn.addEventListener('click', function (e) {
-    if (flagPacity > 0) {
-      flagPacity--;
+    progress++;
 
-      gsap.to($overlay, {
-        autoAlpha: flagPacity / 10,
+    console.log(progress);
+
+    if (progress === 1) {
+      gsap.to('.ch__text:nth-child(1)', { autoAlpha: 0 });
+      gsap.to('.ch__text:nth-child(2)', { autoAlpha: 1 });
+
+      const pr = calcR(normalize(progress, 0, 6) * 100);
+      pctIndicator.style = `stroke-dashoffset: ${pr};`;
+    }
+
+    if (progress === 2) {
+      let tl = gsap.timeline();
+
+      const pr = calcR(normalize(progress, 0, 6) * 100);
+      pctIndicator.style = `stroke-dashoffset: ${pr};`;
+
+      tl.to('.ch__text:nth-child(1)', {
+        autoAlpha: 0,
+        ease: 'power2.out',
+      });
+      tl.to('.flag-scale', {
+        left: 0,
+        top: 0,
+        ease: 'power2.out',
+      });
+      tl.to('.flag-scale', {
+        scale: 1.8,
+        delay: 0.4,
+        ease: 'power2.out',
+      });
+      tl.to('.year-counter', {
+        autoAlpha: 1,
+        ease: 'power2.out',
+      });
+    }
+
+    if (progress === 3) {
+      const pr = calcR(normalize(progress, 0, 6) * 100);
+      pctIndicator.style = `stroke-dashoffset: ${pr};`;
+
+      gsap.to('.flag-overlay--color', {
+        opacity: 0.3,
         duration: 0.3,
+      });
+
+      gsap.to('.flag-overlay--op', {
+        opacity: 0.1,
+        duration: 0.3,
+      });
+
+      gsap.to('.year-counter__count span:nth-child(1)', {
+        autoAlpha: 0,
+        ease: 'power2.out',
+      });
+
+      gsap.to('.year-counter__count span:nth-child(2)', {
+        autoAlpha: 1,
+        ease: 'power2.out',
+      });
+    }
+    if (progress === 4) {
+      const pr = calcR(normalize(progress, 0, 6) * 100);
+      pctIndicator.style = `stroke-dashoffset: ${pr};`;
+
+      gsap.to('.flag-overlay--color', {
+        opacity: 0.6,
+        duration: 0.3,
+      });
+
+      gsap.to('.flag-overlay--op', {
+        opacity: 0.2,
+        duration: 0.3,
+      });
+
+      gsap.to('.year-counter__count span:nth-child(2)', {
+        autoAlpha: 0,
+        ease: 'power2.out',
+      });
+
+      gsap.to('.year-counter__count span:nth-child(3)', {
+        autoAlpha: 1,
+        ease: 'power2.out',
+      });
+    }
+
+    if (progress === 5) {
+      const pr = calcR(normalize(progress, 0, 6) * 100);
+      pctIndicator.style = `stroke-dashoffset: ${pr};`;
+
+      gsap.to('.flag-overlay--color', {
+        opacity: 1,
+        duration: 0.3,
+      });
+
+      gsap.to('.flag-overlay--op', {
+        opacity: 0.45,
+        duration: 0.3,
+      });
+
+      gsap.to('.year-counter__count span:nth-child(3)', {
+        autoAlpha: 0,
+        ease: 'power2.out',
+      });
+
+      gsap.to('.year-counter__count span:nth-child(4)', {
+        autoAlpha: 1,
+        ease: 'power2.out',
+      });
+    }
+
+    if (progress === 6) {
+      const pr = calcR(normalize(progress, 0, 6) * 100);
+      pctIndicator.style = `stroke-dashoffset: ${pr};`;
+
+      let tl = gsap.timeline();
+
+      tl.to('canvas', {
+        autoAlpha: 0,
+      });
+
+      gsap.to('.not-ch', {
+        autoAlpha: 0,
+      });
+
+      gsap.to('.flag-overlay', {
+        autoAlpha: 0,
+      });
+
+      gsap.to('.year-counter', {
+        autoAlpha: 0,
+      });
+
+      tl.to('.dinginosaifjoej', {
+        autoAlpha: 1,
+      });
+
+      tl.to('.ch__text', {
+        autoAlpha: 1,
       });
     }
   });
