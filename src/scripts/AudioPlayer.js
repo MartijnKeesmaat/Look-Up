@@ -28,7 +28,6 @@ export class AudioPlayer {
   initSound() {
     this.sound = new Howl({
       src: ['assets/sound/podcast.mp3'],
-      volume: 0.1,
       sprite: {
         // piano: this.sprites[0],
         // intro: this.sprites[1],

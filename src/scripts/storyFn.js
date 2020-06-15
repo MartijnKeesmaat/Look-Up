@@ -86,11 +86,6 @@ class Story {
         <img src="assets/img/pause.svg" class="circular-icon" />
       </div>
     `;
-
-    // console.log('ofo');
-    // if (document.querySelector('footer p').length === 0) {
-    //   console.log('kutop');
-    // }
   }
 
   checkContainerPos() {

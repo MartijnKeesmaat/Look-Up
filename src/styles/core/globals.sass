@@ -240,3 +240,47 @@ table
   border-spacing: 0
 
   border-collapse: collapse
+
+#flag-canvas
+  position: absolute
+  top: 50%
+  left: 50%
+
+  transform: translate3d(-50%, -50%, 0)
+  transform-origin: center
+
+.flag-scale
+  position: fixed
+  top: 0
+  left: 0
+
+  display: flex
+  align-items: center
+  justify-content: center
+
+  width: 100vw
+  height: 100vh
+
+  transform: scale(1.2)
+
+.flag-overlay
+  position: fixed
+  z-index: 1
+  top: 0
+  left: 0
+
+  width: 100vw
+  height: 100vh
+
+  transition: .3s
+  transform: scale(1.2)
+
+  opacity: .5
+  background: #00CCD9
+
+.page-flag
+  footer
+    left: 0
+
+  .fade--bottom
+    left: 0

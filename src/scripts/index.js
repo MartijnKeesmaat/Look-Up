@@ -7,6 +7,7 @@ import { pageTransition, contentAnimation, delay } from './pageTransition.js';
 
 import { home } from './home.js';
 import { story } from './storyFn.js';
+import { flag } from './flag.js';
 
 barba.init({
   sync: true,
@@ -28,6 +29,7 @@ barba.init({
       async enter({ current, next, trigger }) {
         if (next.namespace === 'home') home();
         if (next.namespace === 'story') story();
+        if (next.namespace === 'flag') flag();
 
         contentAnimation();
       },
@@ -35,6 +37,7 @@ barba.init({
       async once({ current, next, trigger }) {
         if (next.namespace === 'home') home();
         if (next.namespace === 'story') story();
+        if (next.namespace === 'flag') flag();
 
         contentAnimation();
       },

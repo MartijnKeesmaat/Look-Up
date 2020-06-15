@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Codename</title>
+  <meta charset="utf-8" />
+  <meta name="description" content="A codename project" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="author" content="Martijn Keesmaat" />
+</head>
+
+<body data-barba="wrapper">
+  <ul class="transition">
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+  <!-- 
+    <div class="loader">
+      <div class="sun">
+        <svg class="eclipse-container" viewBox="0 0 100 100">
+          <circle class="eclipse" cx="50" cy="50" r="49" transform="rotate(-90 50 50)" />
+        </svg>
+      </div>
+    </div> -->
+
+  <header>
+    <a href="index.html">
+      <img class="logo" src="assets/img/logo.png" alt="" />
+    </a>
+  </header>
+
+  <div style="opacity: .6;" class="fade fade--top"></div>
+
+  <main class="page-flag" data-barba="container" data-barba-namespace="flag">
+    <div class="flag-overlay"></div>
+    <div class="flag-scale">
+      <canvas id="flag-canvas">not support html5</canvas>
+    </div>
+
+    <script id="vertex_shader" type="x-shader/x-vertex">
+          uniform float u_Distance;
+          attribute vec2 a_Position;
+          varying vec2 v_UV;
+          varying float v_Slope;
+    
+          float PI = 3.14159;
+          float scale = 0.8;
+    
+          void main() {
+    
+            float x = a_Position.x;
+            float y = a_Position.y;
+    
+            float amplitude = 1.0 - scale; // 振幅
+            float period = 2.0;  // 周期
+            float waveLength = 2.0 * scale;
+    
+            v_UV = (mat3(0.625,0,0, 0,0.625,0, 0.5,0.5,1) * vec3(x, y, 1.0)).xy;
+            y += amplitude * ( (x - (-scale)) / waveLength) * sin(2.0 * PI * (x - u_Distance));
+    
+            float x2 = x - 0.001;
+            float y2 = a_Position.y + amplitude * ( (x2 - (-scale)) / waveLength) * sin(2.0 * PI * (x2 - u_Distance));
+    
+            v_Slope = y - y2;
+            gl_Position = vec4(vec2(x, y), 0.0, 1.0);
+          }
+        </script>
+    
+    <script id="fragment_shader" type="x-shader/x-fragment">
+          precision mediump float;
+          uniform sampler2D u_Sampler;
+          varying vec2 v_UV;
+          varying float v_Slope;
+    
+          void main() {
+            vec4 color = texture2D( u_Sampler, v_UV );
+            if( v_Slope > 0.0 ) {
+              color = mix( color, vec4(0.0, 0.0, 0.0, 1.0), v_Slope * 300.0 );
+            }
+            if( v_Slope < 0.0 ) {
+              color = mix( color, vec4(1.0), abs(v_Slope) * 300.0 );
+            }
+            if(v_UV.x < 0.0 || v_UV.x > 1.0 || v_UV.y < 0.0 || v_UV.y > 1.0) {
+              color.a = 0.0;
+            }
+            gl_FragColor = color;
+          }
+        </script>
+        <footer>
+          <div class="circular-progress pause">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-labelledby="title" role="graphic">
+              <circle cx="50" cy="50" r="40"></circle>
+              <circle cx="50" cy="50" r="40" id="pct-ind"></circle>
+            </svg>
+            <img src="assets/img/finger-print.svg" class="circular-icon" />
+          </div>
+        
+          <div class="timeline">
+            <img src="assets/img/marker.svg" class="timeline__marker"></img>
+            <div class="timeline__filled"></div>
+            <div class="timeline__not-filled"></div>
+          </div>
+        </footer>
+        <div style="opacity: 0.8;" class="fade fade--bottom"></div>
+  </main>
+
+  <!-- <footer>
+    <div class="circular-progress pause">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" aria-labelledby="title" role="graphic">
+        <circle cx="50" cy="50" r="40"></circle>
+        <circle cx="50" cy="50" r="40" id="pct-ind"></circle>
+      </svg>
+      <img src="assets/img/pause.svg" class="circular-icon" />
+    </div>
+
+    <div class="timeline">
+      <img src="assets/img/marker.svg" class="timeline__marker"></img>
+      <div class="timeline__filled"></div>
+      <div class="timeline__not-filled"></div>
+    </div>
+  </footer> -->
+</body>
+
+</html>

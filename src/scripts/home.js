@@ -8,7 +8,7 @@ export function home() {
     src: ['assets/sound/remembering.mp3'],
   });
 
-  // remembering.play();
+  remembering.play();
 
   audioPlayer.timestampToSprites();
   audioPlayer.initSound();

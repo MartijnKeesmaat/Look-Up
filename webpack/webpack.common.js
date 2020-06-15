@@ -31,6 +31,10 @@ module.exports = {
       filename: 'zoom.html',
       template: './src/zoom.html',
     }),
+    new HtmlWebpackPlugin({
+      filename: 'flag.html',
+      template: './src/flag.html',
+    }),
   ],
   resolve: {
     alias: {
