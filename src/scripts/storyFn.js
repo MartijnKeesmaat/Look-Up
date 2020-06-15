@@ -1,13 +1,10 @@
 // import { storyTL } from './Story.js';
 import { Howl, Howler } from 'howler';
 import { AudioPlayer } from './AudioPlayer.js';
+import { normalize } from './helpers.js';
 
 import gsap from 'gsap';
 let storyTL = gsap.timeline();
-
-function normalize(value, min, max) {
-  return (value - min) / (max - min);
-}
 
 class Story {
   constructor() {
