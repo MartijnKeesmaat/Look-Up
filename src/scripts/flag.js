@@ -133,7 +133,7 @@ export function flag() {
     }
 
     image.crossOrigin = 'anonymous';
-    image.src = './assets/img/fabric2.jpg';
+    image.src = './assets/img/ah!.png';
     console.log(image);
 
     image.onload = function () {
@@ -149,8 +149,8 @@ export function flag() {
         imgWidth *= IMG_MAX_HEIGHT / imgHeight;
         imgHeight = IMG_MAX_HEIGHT;
       }
-      canvasWidth = imgWidth * 2;
-      canvasHeight = imgHeight * 2;
+      canvasWidth = imgWidth * 1;
+      canvasHeight = imgHeight * 1;
       canvas.width = canvasWidth;
       canvas.height = canvasHeight;
 
@@ -288,19 +288,21 @@ function fadeOverlay() {
         autoAlpha: 0,
         ease: 'power2.out',
       });
-      tl.to('.flag-scale', {
-        left: 0,
-        top: 0,
-        ease: 'power2.out',
-      });
-      tl.to('.flag-scale', {
-        scale: 1.8,
-        delay: 0.4,
-        ease: 'power2.out',
-      });
+
+      tl.to(
+        '.flag-scale',
+        {
+          right: '0',
+          ease: 'power4.out',
+          duration: 3,
+        },
+        '-=0.3'
+      );
+
       tl.to('.year-counter', {
         autoAlpha: 1,
         ease: 'power2.out',
+        delay: 0.3,
       });
     }
 
